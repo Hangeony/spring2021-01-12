@@ -15,7 +15,7 @@ public class PageDTO {
 	
 	private int total; //총 페이지
 	
-	private Criteria cri;
+	private Criteria cri; //도메인에 있는 클래스/ 클래스가 클래스를 필드로 필드안에 있는값을 호출하려고
 	
 	public PageDTO(Criteria cri, int total) {
 		this.cri = cri;

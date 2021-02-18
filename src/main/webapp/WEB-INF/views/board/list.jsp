@@ -125,6 +125,7 @@
 		  <c:param name="amount" value="${pageMaker.cri.amount }" />
 		  <c:param name="type" value="${pageMaker.cri.type }"/>
     	  <c:param name="keyword" value="${pageMaker.cri.keyword }"/>
+    	  
 	</c:url>
     <li class="page-item">
     <%--

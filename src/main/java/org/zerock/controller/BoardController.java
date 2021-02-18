@@ -10,22 +10,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.PageDTO;
 import org.zerock.service.BoardService;
+import org.zerock.service.FileUpService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Controller
-@AllArgsConstructor
+@AllArgsConstructor //자동 인셉션이됨
 @RequestMapping("/board/*")
 public class BoardController {
 	
 	private BoardService service;
+	private FileUpService fileUpSvc;
 	
 	/*
 	 * @AllArgsConstructor
@@ -50,22 +53,35 @@ public class BoardController {
 		int total = service.getTotal(cri);
 		PageDTO dto = new PageDTO(cri, total);
 		
-		
 		model.addAttribute("list", list);
 		model.addAttribute("pageMaker", dto);
 	}
 	
 //	@RequestMapping(value="register" ,method = RequestMethod.POST)
 	@PostMapping("/register")
-	public String register(BoardVO board, RedirectAttributes rttr) {
+	public String register(BoardVO board,MultipartFile file, RedirectAttributes rttr) {
+		
 		/*
 		BoardVO board = new Board();
 		board.setTitle(request.getParameter("title"));
 		board.setContent(request.getParameter("content"));
 		board.setWriter(request.getParameter("writer"));
 		*/
+		board.setFilename("");
 		service.register(board);
 		
+		if (file != null) {
+			board.setFilename(board.getBno() + "_" + file.getOriginalFilename());
+			service.modify(board);
+//			fileUpSvc.write(file, board.getFilename());
+			try {
+				fileUpSvc.transfer(file, board.getFilename());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+
 		rttr.addFlashAttribute("result", board.getBno());
 		rttr.addFlashAttribute("message", board.getBno() + "번이 등록되었습니다.");
 		

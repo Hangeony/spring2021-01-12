@@ -46,6 +46,9 @@ var bno = ${board.bno};
 						<label for="textarea1">내용</label>
 						<textarea readonly class="form-control" id="textarea1" rows="3"><c:out value="${board.content }"/></textarea>
 					</div>
+					<div>
+						<img class="img-fluid" alt="" src="${staticPath }${board.filename }">
+					</div>
 					<div class="form-group">
 						<label for="input2">작성자</label> 
 						<input readonly value='<c:out value="${board.writer }"/>' name="writer" type="text" class="form-control" id="input2" placeholder="이름을 입력하세요.">

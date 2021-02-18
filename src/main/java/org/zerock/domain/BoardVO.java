@@ -13,4 +13,5 @@ public class BoardVO {
 	private Date regdate;
 	private Date updateDate;
 	private int replyCnt; //댓글 추가
+	private String filename; //파일 추가
 }

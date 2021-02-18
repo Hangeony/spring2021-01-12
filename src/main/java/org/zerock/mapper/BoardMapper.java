@@ -46,5 +46,5 @@ public interface BoardMapper {
 	//게시판이 몇개인지 확인하는 메소드
 	//sql = SELECT count(*) FROM tbl_board
 
-	public void updateReplyCnt(@Param("bno")Long bno,@Param("amount") int amount);
+	public void updateReplyCnt(@Param("bno")Long bno, @Param("amount") int amount);
 }
